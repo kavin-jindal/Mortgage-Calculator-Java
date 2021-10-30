@@ -3,35 +3,56 @@ package com.kavinjindal;
 import java.text.NumberFormat;
 import java.util.Scanner;
 
-public class Main {
+public class mortgagenew {
 
     public static void main(String[] args) {
+
         System.out.println("Mortgage Calc by Kavin Jindal");
-        System.out.print("Enter your principal amount: ");
         Scanner scanner = new Scanner(System.in);
-        int finalprince = scanner.nextInt();
+        int principal = 0;
         //System.out.println("Principal: " + finalprince);
 
-        // ask annual interest
-        System.out.print("Enter your annual interest rate: ");
+        while (true){
+            System.out.print("Principal [$1K - $1M]: ");
+            principal = scanner.nextInt();
+            if (principal >= 1000 && principal <= 1_000_000)
+                break;
+            System.out.println("Enter a value between $1K and $1M");
 
-        float anint = scanner.nextFloat();
-        byte monthsinyear = 12;
+
+                    }
+
+        // ask annual interest
+
+        float ANNUAL_INTEREST = 0;
+        byte MONTHS_IN_YEAR = 12;
         byte percent = 100;
 
-        float finalint = anint / percent / monthsinyear;
+        while (true){
+            System.out.println("Annual Interest Rate [Between 1 and 30]: ");
+            ANNUAL_INTEREST = scanner.nextFloat();
+            if (ANNUAL_INTEREST >= 1 && ANNUAL_INTEREST <= 30)
+                break;
+            System.out.println("The value should be between 1 and 30");
+        }
+        float FINAL_INTEREST = ANNUAL_INTEREST / percent / MONTHS_IN_YEAR;
+
         //System.out.println("Final Interest Rate: " + finalint);
 
-        System.out.print("Period (years)");
-        byte years = scanner.nextByte();
-        int calculate = years * 12;
-        //System.out.println("Number of months, you will be paying: " + calculate);
 
-        double mortgage_final = finalprince * (finalint * Math.pow(1 + finalint, years))
-                / (Math.pow(1 + finalint, years) - 1);
+        byte years = 0;
+        while (true){
+            System.out.println("Enter the period in years [Between 1 and 30]: ");
+            years = scanner.nextByte();
+            if (years >= 1 && years <= 30)
+                break;
+            System.out.println("The value should be between 1 and 30");
+
+        }
+        int calculate = years * 12;
+        double mortgage_final = principal * (FINAL_INTEREST * Math.pow(1 + FINAL_INTEREST, years)) / (Math.pow(1 + FINAL_INTEREST, years) - 1);
         NumberFormat currency = NumberFormat.getCurrencyInstance();
         String currency_mortgage = currency.format(mortgage_final);
-        //System.out.println("Your mortgage: " + mortgage_final);
         System.out.println("Final Mortgage: " + currency_mortgage);
 
 
@@ -40,5 +61,4 @@ public class Main {
 
 
     }
-
 }
